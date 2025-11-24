@@ -1,5 +1,6 @@
 package com.kaoutar.SmartShop.model;
 
+import com.kaoutar.SmartShop.enums.PaymentStatus;
 import com.kaoutar.SmartShop.enums.PaymentType;
 import jakarta.persistence.*;
 import lombok.*;
