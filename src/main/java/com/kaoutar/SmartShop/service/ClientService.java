@@ -5,7 +5,9 @@ import com.kaoutar.SmartShop.Mapper.ClientMapper;
 import com.kaoutar.SmartShop.enums.CustomerTier;
 import com.kaoutar.SmartShop.enums.UserRole;
 import com.kaoutar.SmartShop.model.Client;
+import com.kaoutar.SmartShop.model.User;
 import com.kaoutar.SmartShop.repositery.ClientRepository;
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
@@ -37,4 +39,20 @@ public class ClientService {
 
         return mapper.toDto(clientRepository.save(client));
     }
+
+
+    public ClientDTO getProfile(HttpSession session) {
+       User Client = (User) session.getAttribute("user");
+
+        if (Client == null) {
+            throw new RuntimeException("Aucun utilisateur connecté");
+        }
+
+        Client client = clientRepository.findById(Client.getId())
+                .orElseThrow(() -> new RuntimeException("Client introuvable"));
+
+        return mapper.toDto(client);
+    }
+
+
 }

@@ -1,17 +1,16 @@
 package com.kaoutar.SmartShop.controller;
 
 import com.kaoutar.SmartShop.DTO.ClientDTO;
-import com.kaoutar.SmartShop.model.Client;
-import com.kaoutar.SmartShop.service.ClientService;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
+import com.kaoutar.SmartShop.service.ClientService;
+
+import jakarta.servlet.http.HttpSession;
+import lombok.AllArgsConstructor;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+
 
 @AllArgsConstructor
 
@@ -24,8 +23,16 @@ public class ClientController {
     @PostMapping
     public ResponseEntity<ClientDTO> createClient(@RequestBody ClientDTO request) {
         ClientDTO dto = clientService.createClient(request);
-
-
         return ResponseEntity.ok(dto);
     }
+
+
+    @RequestMapping("/api/client/profile")
+    @GetMapping
+    public ResponseEntity<ClientDTO> getProfile(HttpSession session){
+        ClientDTO dto =clientService.getProfile(session);
+        return  ResponseEntity.ok(dto);
+    }
+
+
 }
