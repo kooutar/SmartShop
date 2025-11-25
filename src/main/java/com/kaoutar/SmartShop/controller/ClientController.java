@@ -16,13 +16,11 @@ import java.util.ArrayList;
 @AllArgsConstructor
 
 @RestController
-@RequestMapping("/api/clients")
+
 public class ClientController {
     private final ClientService clientService;
 
-
-
-
+    @RequestMapping("/api/admin/clients")
     @PostMapping
     public ResponseEntity<ClientDTO> createClient(@RequestBody ClientDTO request) {
         ClientDTO dto = clientService.createClient(request);

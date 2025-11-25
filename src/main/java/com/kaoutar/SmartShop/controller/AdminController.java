@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/admins")
+@RequestMapping("/api/admin")
 public class AdminController {
 
     private final AdminService adminService;
@@ -19,9 +19,6 @@ public class AdminController {
     @PostMapping
     public ResponseEntity<AdminDTO> createAdmin(@RequestBody AdminDTO request) {
         AdminDTO admin = adminService.createAdmin(request);
-
-
-
         return ResponseEntity.ok(admin);
     }
 }

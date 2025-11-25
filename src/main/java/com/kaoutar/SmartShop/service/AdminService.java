@@ -8,7 +8,7 @@ import com.kaoutar.SmartShop.repositery.AdminRepository;
 import lombok.AllArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
 
 @Service
 @AllArgsConstructor
