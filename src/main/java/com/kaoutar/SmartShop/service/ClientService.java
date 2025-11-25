@@ -23,7 +23,7 @@ public class ClientService {
     public ClientDTO createClient(ClientDTO request) {
         Optional<Client> clientExiste = clientRepository.findByEmail(request.getEmail());
         if (clientExiste.isPresent()) {
-            throw new IllegalArgumentException("Username déjà utilisé !");
+            throw new IllegalArgumentException("Email déjà utilisé !");
         }
 
         Client client = mapper.toEntity(request);
