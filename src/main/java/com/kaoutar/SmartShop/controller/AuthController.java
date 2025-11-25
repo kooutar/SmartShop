@@ -28,7 +28,8 @@ public class AuthController {
             throw new RuntimeException("Mot de passe incorrect");
         }
 
-        session.setAttribute("user", user);
+        session.setAttribute("userId", user.getId());
+        session.setAttribute("role", user.getRole());
 
         return "Connexion réussie";
     }

@@ -1,7 +1,6 @@
 package com.kaoutar.SmartShop.config;
 
 import com.kaoutar.SmartShop.enums.UserRole;
-import com.kaoutar.SmartShop.model.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -24,8 +23,9 @@ public class AuthInterceptor implements HandlerInterceptor {
             return false;
         }
 
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
+        Long userId=(Long) session.getAttribute("userId");
+        UserRole userRole = (UserRole) session.getAttribute("role");
+        if (userId == null && userRole==null) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Session invalide");
             return false;
         }
@@ -33,7 +33,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         String uri = request.getRequestURI();
 
 
-        if (!hasAccess(uri, user)) {
+        if (!hasAccess(uri, userId, userRole)) {
             response.sendError(HttpServletResponse.SC_FORBIDDEN, "Accès interdit");
             return false;
         }
@@ -41,11 +41,11 @@ public class AuthInterceptor implements HandlerInterceptor {
         return true;
     }
 
-    private boolean hasAccess(String uri, User user) {
+    private boolean hasAccess(String uri, Long user, UserRole userRole) {
 
-        return switch (user.getRole()) {
-            case ADMIN -> true; // ADMIN a accès partout
-            case CLIENT -> !uri.startsWith("/api/admin"); // CLIENT interdit sur /api/admin/**
+        return switch (userRole) {
+            case ADMIN -> true;
+            case CLIENT -> !uri.startsWith("/api/admin");
             default -> false;
         };
     }

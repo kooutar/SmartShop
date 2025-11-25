@@ -34,5 +34,12 @@ public class ClientController {
         return  ResponseEntity.ok(dto);
     }
 
+    @RequestMapping("/api/client/profile/update")
+    @PutMapping
+    public ResponseEntity<ClientDTO> updateProfile(ClientDTO request, HttpSession session){
+       ClientDTO dto = clientService.updateProfile(request,session);
+       return  ResponseEntity.ok(dto);
+    }
+
 
 }

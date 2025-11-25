@@ -11,9 +11,11 @@ import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Optional;
+@Transactional
 @AllArgsConstructor
 @Service
 public class ClientService {
@@ -42,17 +44,36 @@ public class ClientService {
 
 
     public ClientDTO getProfile(HttpSession session) {
-       User Client = (User) session.getAttribute("user");
+        Long clientId = (Long) session.getAttribute("userId");
 
-        if (Client == null) {
-            throw new RuntimeException("Aucun utilisateur connecté");
-        }
 
-        Client client = clientRepository.findById(Client.getId())
+        Client client = clientRepository.findById(clientId)
                 .orElseThrow(() -> new RuntimeException("Client introuvable"));
 
         return mapper.toDto(client);
     }
+
+
+    public ClientDTO updateProfile(ClientDTO request, HttpSession session) {
+        Long clientId = (Long) session.getAttribute("userId");
+
+
+        Client clientExiste = clientRepository.findById(clientId)
+                .orElseThrow(() -> new RuntimeException("Client introuvable"));
+
+        if (request.getNom() != null) clientExiste.setNom(request.getNom());
+        if (request.getEmail() != null) clientExiste.setEmail(request.getEmail());
+        if (request.getPassword() != null) {
+            String hashedPass = BCrypt.hashpw(request.getPassword(), BCrypt.gensalt());
+            clientExiste.setPassword(hashedPass);
+        }
+
+
+        Client clientMisAJour = clientRepository.save(clientExiste);
+
+        return mapper.toDto(clientMisAJour);
+    }
+
 
 
 }
