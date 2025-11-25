@@ -14,8 +14,9 @@ public class ClientDTO {
     private String nom;
     private String email;
     private String tier;
-    private int totalOrders;
-    private double totalSpent;
+    private Integer totalOrders;
+    private Double totalSpent;
+    private  String password;
 
     private List<CommandeDTO> commandes;
 }
