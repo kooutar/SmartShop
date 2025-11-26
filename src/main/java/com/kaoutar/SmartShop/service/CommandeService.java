@@ -72,6 +72,7 @@ public class CommandeService {
         commande.setSousTotalHT(subTotal);
 
         commandeRepository.save(commande);
+        client.setTotalOrders(client.getTotalOrders()+1);
         return mapperCommande.toDto(commande);
 
 
