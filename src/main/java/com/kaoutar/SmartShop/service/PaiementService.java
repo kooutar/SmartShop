@@ -21,6 +21,7 @@ public class PaiementService {
     public PaiementDTO addPayement(Long orderId , PaiementDTO request){
         Commande Order = commandeRepository.findById(orderId).orElseThrow(()->new BusinessException("commande introuvable"));
         Paiement payment = paiementMapper.toEntity(request);
+        payment.setCommande(Order);
         return  paiementMapper.toDto(paymentRepository.save(payment));
 
     }
