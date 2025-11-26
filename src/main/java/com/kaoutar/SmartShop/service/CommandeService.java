@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 @AllArgsConstructor
 @Service
@@ -35,6 +36,7 @@ public class CommandeService {
         Commande commande = mapperCommande.toEntity(request);
         commande.setDate(LocalDate.now());
         commande.setStatut(OrderStatus.PENDING);
+        commande.setItems(new ArrayList<>());
         double subTotal = 0.0;
         for (OrderItemDTO itemReq : request.getItems()) {
             Product product = productRepository.findById(itemReq.getProductId()).orElseThrow(() -> new BusinessException("Produit introuvable "));
