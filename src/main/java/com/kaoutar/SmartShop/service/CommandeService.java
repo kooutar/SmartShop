@@ -2,16 +2,16 @@ package com.kaoutar.SmartShop.service;
 
 import com.kaoutar.SmartShop.DTO.CommandeDTO;
 import com.kaoutar.SmartShop.DTO.OrderItemDTO;
+import com.kaoutar.SmartShop.DTO.PaiementDTO;
 import com.kaoutar.SmartShop.Mapper.CommandeMapper;
 import com.kaoutar.SmartShop.Mapper.OrderItemMapper;
+import com.kaoutar.SmartShop.Mapper.PaiementMapper;
 import com.kaoutar.SmartShop.enums.OrderStatus;
 import com.kaoutar.SmartShop.exception.BusinessException;
-import com.kaoutar.SmartShop.model.Client;
-import com.kaoutar.SmartShop.model.Commande;
-import com.kaoutar.SmartShop.model.OrderItem;
-import com.kaoutar.SmartShop.model.Product;
+import com.kaoutar.SmartShop.model.*;
 import com.kaoutar.SmartShop.repositery.ClientRepository;
 import com.kaoutar.SmartShop.repositery.CommandeRepository;
+import com.kaoutar.SmartShop.repositery.PaiementRepository;
 import com.kaoutar.SmartShop.repositery.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,6 +29,8 @@ public class CommandeService {
     private final ClientRepository clientRepository;
     private final ProductRepository productRepository;
     private final OrderItemMapper orderItemMapper;
+    private  final PaiementMapper paiementMapper;
+    private  final PaiementRepository paymentRepository;
 
     public CommandeDTO createCommande(CommandeDTO request) {
         Client client = clientRepository.findById(request.getClientId()).orElseThrow(() -> new BusinessException("Client introuvable"));
@@ -97,4 +99,5 @@ public class CommandeService {
             }
         }
     }
+
 }

@@ -18,8 +18,8 @@ public class Paiement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int numeroPaiement;
-    private double montant;
+    private Integer numeroPaiement;
+    private Double montant;
 
     @Enumerated(EnumType.STRING)
     private PaymentType typePaiement; // ESPECES, CHEQUE, VIREMENT

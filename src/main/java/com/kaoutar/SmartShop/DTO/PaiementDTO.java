@@ -10,8 +10,8 @@ import java.time.LocalDate;
 @Builder
 public class PaiementDTO {
     private Long id;
-    private int numeroPaiement;
-    private double montant;
+    private Integer numeroPaiement;
+    private Double montant;
     private String typePaiement;
     private LocalDate datePaiement;
     private LocalDate dateEncaissement;
