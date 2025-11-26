@@ -9,7 +9,7 @@ import lombok.*;
 public class OrderItemDTO {
     private Long productId;
     private String productName;
-    private int quantite;
-    private double prixUnitaire;
-    private double totalLigne;
+    private Integer quantite;
+    private Double prixUnitaire;
+    private Double totalLigne;
 }

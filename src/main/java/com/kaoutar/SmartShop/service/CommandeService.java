@@ -47,6 +47,8 @@ public class CommandeService {
             double totalLigne = product.getPrixUnitaire() * itemReq.getQuantite();
             itemReq.setTotalLigne(totalLigne);
             OrderItem orderItemEntity = orderItemMapper.toEntity(itemReq);
+            orderItemEntity.setCommande(commande);
+            commande.getItems().add(orderItemEntity);
             subTotal += totalLigne;
         }
 
