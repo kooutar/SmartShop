@@ -136,7 +136,7 @@ public class CommandeService {
 
     }
 
-    @Transactional
+
     public String updateCommande(Long orderId, CommandeDTO req) {
         Commande order = commandeRepository.findById(orderId)
                 .orElseThrow(() -> new BusinessException("Commande introuvable"));
@@ -198,6 +198,25 @@ public class CommandeService {
 
         return "Commande mise à jour avec succès";
     }
+
+    @Transactional
+    public String deleteCommande(Long orderId) {
+        Commande order = commandeRepository.findById(orderId)
+                .orElseThrow(() -> new BusinessException("Commande introuvable"));
+
+        if (order.getStatut() != OrderStatus.PENDING) {
+            throw new BusinessException("Impossible de supprimer une commande dont le statut est : " + order.getStatut());
+        }
+
+        // supprimer les items liés
+        order.getItems().clear();
+
+        // supprimer la commande
+        commandeRepository.delete(order);
+
+        return "Commande supprimée avec succès";
+    }
+
 
 
 
