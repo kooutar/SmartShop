@@ -2,7 +2,6 @@ package com.kaoutar.SmartShop.service;
 
 import com.kaoutar.SmartShop.DTO.CommandeDTO;
 import com.kaoutar.SmartShop.DTO.OrderItemDTO;
-import com.kaoutar.SmartShop.DTO.PaiementDTO;
 import com.kaoutar.SmartShop.Mapper.CommandeMapper;
 import com.kaoutar.SmartShop.Mapper.OrderItemMapper;
 import com.kaoutar.SmartShop.Mapper.PaiementMapper;
@@ -29,8 +28,7 @@ public class CommandeService {
     private final ClientRepository clientRepository;
     private final ProductRepository productRepository;
     private final OrderItemMapper orderItemMapper;
-    private  final PaiementMapper paiementMapper;
-    private  final PaiementRepository paymentRepository;
+    private  final  ClientService  clientService;
 
     public CommandeDTO createCommande(CommandeDTO request) {
         Client client = clientRepository.findById(request.getClientId()).orElseThrow(() -> new BusinessException("Client introuvable"));
@@ -126,6 +124,7 @@ public class CommandeService {
           commandeRepository.save(order);
           order.getClient().setTotalOrders(order.getClient().getTotalOrders()+1);
           order.getClient().setTotalSpent(order.getClient().getTotalSpent()+order.getMontantHT());
+          clientService.updateFidelite(order.getClient());
           return "commande confirmée ";
       }
        return  "le paiement n'est pas complet ";
