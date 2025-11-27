@@ -70,6 +70,7 @@ public class CommandeService {
         commande.setTva(tva);
         commande.setMontantHT(htAfterDiscount);
         commande.setSousTotalHT(subTotal);
+        commande.setMontantRestant(htAfterDiscount);
 
         commandeRepository.save(commande);
         client.setTotalOrders(client.getTotalOrders()+1);
