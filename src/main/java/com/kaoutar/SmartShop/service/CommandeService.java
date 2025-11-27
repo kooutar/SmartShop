@@ -29,6 +29,7 @@ public class CommandeService {
     private final ProductRepository productRepository;
     private final OrderItemMapper orderItemMapper;
     private  final  ClientService  clientService;
+    private  final  ProductService productService;
 
     public CommandeDTO createCommande(CommandeDTO request) {
         Client client = clientRepository.findById(request.getClientId()).orElseThrow(() -> new BusinessException("Client introuvable"));
@@ -124,6 +125,9 @@ public class CommandeService {
           commandeRepository.save(order);
           order.getClient().setTotalOrders(order.getClient().getTotalOrders()+1);
           order.getClient().setTotalSpent(order.getClient().getTotalSpent()+order.getMontantHT());
+          for(OrderItem item: order.getItems()){
+              productService.decreaseStockAfterOrder(item.getProduct(), item.getQuantite());
+          }
           clientService.updateFidelite(order.getClient());
           return "commande confirmée ";
       }
