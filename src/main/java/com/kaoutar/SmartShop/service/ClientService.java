@@ -74,6 +74,20 @@ public class ClientService {
 
         return mapper.toDto(clientMisAJour);
     }
+    public void updateFidelite(Client client) {
+        int totalOrders = client.getTotalOrders();
+        double totalSpent = client.getTotalSpent();
+
+        if (totalOrders >= 20 || totalSpent >= 15000.0) {
+            client.setTier(CustomerTier.PLATINUM);
+        } else if (totalOrders >= 10 || totalSpent >= 5000.0) {
+            client.setTier(CustomerTier.GOLD);
+        } else if (totalOrders >= 3 || totalSpent >= 1000.0) {
+            client.setTier(CustomerTier.SILVER);
+        } else {
+            client.setTier(CustomerTier.BASIC);
+        }
+    }
 
 
 
