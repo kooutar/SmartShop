@@ -4,6 +4,7 @@ import com.kaoutar.SmartShop.DTO.ClientDTO;
 import com.kaoutar.SmartShop.Mapper.ClientMapper;
 import com.kaoutar.SmartShop.enums.CustomerTier;
 import com.kaoutar.SmartShop.enums.UserRole;
+import com.kaoutar.SmartShop.exception.BusinessException;
 import com.kaoutar.SmartShop.model.Client;
 import com.kaoutar.SmartShop.model.User;
 import com.kaoutar.SmartShop.repositery.ClientRepository;
@@ -76,7 +77,10 @@ public class ClientService {
 
 
 
-    }
+
+
+
+}
 
 
 

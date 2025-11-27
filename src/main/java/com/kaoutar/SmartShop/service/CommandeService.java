@@ -73,7 +73,7 @@ public class CommandeService {
         commande.setMontantRestant(htAfterDiscount);
 
         commandeRepository.save(commande);
-        client.setTotalOrders(client.getTotalOrders()+1);
+
         return mapperCommande.toDto(commande);
 
 
@@ -124,6 +124,8 @@ public class CommandeService {
       if(order.getMontantRestant()==0){
           order.setStatut(OrderStatus.CONFIRMED);
           commandeRepository.save(order);
+          order.getClient().setTotalOrders(order.getClient().getTotalOrders()+1);
+          order.getClient().setTotalSpent(order.getClient().getTotalSpent()+order.getMontantHT());
           return "commande confirmée ";
       }
        return  "le paiement n'est pas complet ";
