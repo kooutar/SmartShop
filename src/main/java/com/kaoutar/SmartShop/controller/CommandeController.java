@@ -22,4 +22,18 @@ public class CommandeController {
          String message=commandeService.confirmOrder(orderId);
         return  ResponseEntity.ok(message);
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateCommande(
+            @PathVariable Long id,
+            @RequestBody CommandeDTO request) {
+
+        String result = commandeService.updateCommande(id, request);
+        return ResponseEntity.ok(result);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteCommande(@PathVariable Long id) {
+        String result = commandeService.deleteCommande(id);
+        return ResponseEntity.ok(result);
+    }
 }
