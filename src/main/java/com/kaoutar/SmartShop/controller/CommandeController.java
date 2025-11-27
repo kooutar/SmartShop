@@ -4,10 +4,7 @@ import com.kaoutar.SmartShop.DTO.CommandeDTO;
 import com.kaoutar.SmartShop.service.CommandeService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/admin/commande")
@@ -20,4 +17,9 @@ public class CommandeController {
          return  ResponseEntity.ok(commande);
     }
 
+    @PostMapping("/{orderId}")
+    public ResponseEntity<String> confirmOrder(@PathVariable Long orderId) {
+         String message=commandeService.confirmOrder(orderId);
+        return  ResponseEntity.ok(message);
+    }
 }

@@ -119,4 +119,17 @@ public class CommandeService {
     }
 
 
+    public String confirmOrder(Long orderId) {
+      Commande order= commandeRepository.findById(orderId).orElseThrow(()->new BusinessException("commande introuvable"));
+      if(order.getMontantRestant()==0){
+          order.setStatut(OrderStatus.CONFIRMED);
+          commandeRepository.save(order);
+          return "commande confirmée ";
+      }
+       return  "le paiement n'est pas complet ";
+
+    }
+
+
+
 }
