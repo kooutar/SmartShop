@@ -102,4 +102,21 @@ public class CommandeService {
         }
     }
 
+// decrementer le Mountant_Restant apres le paiement
+    public void decrementRemainingAmountByPayment(long orderId, double amountPaid) {
+        Commande order = commandeRepository.findById(orderId).orElseThrow(()->new BusinessException("commande n'existe pas "));
+        if(order.getMontantRestant()>=amountPaid){
+            double newRemainingAmount= order.getMontantRestant()-amountPaid;
+            order.setMontantRestant(newRemainingAmount);
+            commandeRepository.save(order);
+        }else {
+            throw new BusinessException("Le montant saisi dépasse le montant restant.");
+
+        }
+
+
+
+    }
+
+
 }
