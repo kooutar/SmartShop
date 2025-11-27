@@ -83,6 +83,7 @@ public class CommandeService {
      * GOLD : 10% si sous-total ≥ 800
      * PLATINUM : 15% si sous-total ≥ 1200
      */
+
     private double calculateLoyaltyDiscount(Client client, double subTotal) {
         switch (client.getTier()) {
             case SILVER -> {
@@ -101,7 +102,7 @@ public class CommandeService {
         }
     }
 
-// decrementer le Mountant_Restant apres le paiement
+    // decrementer le Mountant_Restant apres le paiement
     public void decrementRemainingAmountByPayment(long orderId, double amountPaid) {
         Commande order = commandeRepository.findById(orderId).orElseThrow(()->new BusinessException("commande n'existe pas "));
         if(order.getMontantRestant()>=amountPaid){
@@ -134,6 +135,78 @@ public class CommandeService {
        return  "le paiement n'est pas complet ";
 
     }
+
+    @Transactional
+    public String updateCommande(Long orderId, CommandeDTO req) {
+        Commande order = commandeRepository.findById(orderId)
+                .orElseThrow(() -> new BusinessException("Commande introuvable"));
+
+        if (order.getStatut() != OrderStatus.PENDING) {
+            throw new BusinessException("Impossible de modifier une commande dont le statut est : " + order.getStatut());
+        }
+
+        // Mise à jour du client si besoin
+        if (req.getClientId() != null) {
+            Client client = clientRepository.findById(req.getClientId())
+                    .orElseThrow(() -> new BusinessException("Client introuvable"));
+            order.setClient(client);
+        }
+
+        // Nettoyage des anciens items avant update
+        order.getItems().clear();
+
+        double subTotal = 0.0;
+
+        for (OrderItemDTO itemReq : req.getItems()) {
+
+            Product product = productRepository.findById(itemReq.getProductId())
+                    .orElseThrow(() -> new BusinessException("Produit introuvable"));
+
+            if (product.getStock() < itemReq.getQuantite()) {
+                throw new BusinessException("Stock insuffisant pour : " + product.getNom());
+            }
+
+            double totalLigne = product.getPrixUnitaire() * itemReq.getQuantite();
+            subTotal += totalLigne;
+
+            OrderItem itemEntity = orderItemMapper.toEntity(itemReq);
+            itemEntity.setCommande(order);
+            itemEntity.setTotalLigne(totalLigne);
+
+            order.getItems().add(itemEntity);
+        }
+
+        // Recalcul discount
+        double discount = calculateLoyaltyDiscount(order.getClient(), subTotal);
+        if (req.getCodePromo() != null && req.getCodePromo().matches("PROMO-[A-Z0-9]{4}")) {
+            discount += subTotal * 0.5;
+        }
+
+        // Recalcul montants
+        double htAfterDiscount = subTotal - discount;
+        double tva = htAfterDiscount * 0.20;
+        double totalTTC = htAfterDiscount + tva;
+
+        order.setSousTotalHT(subTotal);
+        order.setMontantHT(htAfterDiscount);
+        order.setRemise(discount);
+        order.setTva(tva);
+        order.setTotalTTC(totalTTC);
+        order.setMontantRestant(htAfterDiscount);
+
+        commandeRepository.save(order);
+
+        return "Commande mise à jour avec succès";
+    }
+
+
+
+
+
+
+
+
+
 
 
 
