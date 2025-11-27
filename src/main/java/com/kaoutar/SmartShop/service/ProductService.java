@@ -57,4 +57,10 @@ public class ProductService {
         productRepository.save(product);
     }
 
+    public void decreaseStockAfterOrder(Product product, int quantityOrdered) {
+        product.setStock(product.getStock()-quantityOrdered);
+        productRepository.save(product);
+    }
+
+
 }
