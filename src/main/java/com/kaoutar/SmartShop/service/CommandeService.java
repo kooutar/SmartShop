@@ -199,7 +199,7 @@ public class CommandeService {
         return "Commande mise à jour avec succès";
     }
 
-    @Transactional
+
     public String deleteCommande(Long orderId) {
         Commande order = commandeRepository.findById(orderId)
                 .orElseThrow(() -> new BusinessException("Commande introuvable"));

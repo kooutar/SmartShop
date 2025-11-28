@@ -11,6 +11,9 @@ import com.kaoutar.SmartShop.repositery.ClientRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -87,6 +90,26 @@ public class ClientService {
         } else {
             client.setTier(CustomerTier.BASIC);
         }
+    }
+
+    public ClientDTO getClientById(Long id) {
+        Client client = clientRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Client introuvable"));
+
+        return mapper.toDto(client);
+    }
+    public Page<ClientDTO> getAllClients(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Client> clientsPage = clientRepository.findAll(pageable);
+
+        return clientsPage.map(mapper::toDto);
+    }
+
+    public void deleteClient(Long id) {
+        if (!clientRepository.existsById(id)) {
+            throw new RuntimeException("Client introuvable");
+        }
+        clientRepository.deleteById(id);
     }
 
 

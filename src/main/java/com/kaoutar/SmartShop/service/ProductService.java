@@ -62,5 +62,13 @@ public class ProductService {
         productRepository.save(product);
     }
 
+    public List<ProductDTO> getActiveProducts() {
+        List<Product> products = productRepository.findByDeletedFalse();
+        return products.stream()
+                .map(mapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+
 
 }
