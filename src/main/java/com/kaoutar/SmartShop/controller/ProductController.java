@@ -21,7 +21,7 @@ public class ProductController  {
     // Récupérer tous les produits
     @GetMapping
     public ResponseEntity<List<ProductDTO>> getAllProducts() {
-        return ResponseEntity.ok(productService.getAllProducts());
+        return ResponseEntity.ok(productService.getActiveProducts());
     }
 
     // Récupérer un produit par ID
@@ -41,8 +41,8 @@ public class ProductController  {
 
     // Suppression (soft delete)
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+    public ResponseEntity<String> deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("le produit est supprimée");
     }
 }

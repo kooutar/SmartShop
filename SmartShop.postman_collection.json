@@ -1,0 +1,600 @@
+{
+	"info": {
+		"_postman_id": "7149e61b-a8d7-4f15-994f-b1052adc847f",
+		"name": "SmartShop",
+		"description": "SmartShop est une application backend développée avec Spring Boot qui gère :\n\n- Les clients et leurs niveaux de fidélité (BASIC, SILVER, GOLD, PLATINUM).\n    \n- Les produits avec gestion de stock et suppression logique (soft delete).\n    \n- Les commandes avec calcul automatique des remises, TVA et montants.\n    \n- Les paiements multi-modes (espèces, chèque, virement) avec validation légale.\n    \n\nCe projet est conçu comme un portfolio et une soutenance pour démontrer la maîtrise de Spring Boot, JPA/Hibernate, DTOs, Mappers, Tests unitaires et REST APIs.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49436136",
+		"_collection_link": "https://kaoutarlaajil-7937604.postman.co/workspace/Kaoutar-laajil's-Workspace~7e00de0a-08f3-483e-8046-0637f617c3f7/collection/49436136-7149e61b-a8d7-4f15-994f-b1052adc847f?action=share&source=collection_link&creator=49436136"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"admin3\",\r\n  \"password\": \"1234\"\r\n}\r\n\r\n"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login client",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n  \"username\": \"kawtar lll\",\r\n  \"password\": \"1234\"\r\n}\r\n"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "gestion client",
+					"item": [
+						{
+							"name": "ajout client",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"kawtarmm\",\r\n     \"email\": \"kaoutargm@gmail.com\",\r\n    \"password\": \"1234\",\r\n    \"nom\": \"Kaoutar Laajil\"\r\n    \r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/admin/clients",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"admin",
+										"clients"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update profile",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"content-type": true
+								}
+							},
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"kawtar update\",\r\n     \"email\": \"kaoutar4@gmail.com\",\r\n    \"password\": \"1234\",\r\n    \"nom\": \"Kaoutar Laajil\"\r\n    \r\n}\r\n"
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/admin/profile/update/4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"admin",
+										"profile",
+										"update",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete client",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n"
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/admin/profile/delete/4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"admin",
+										"profile",
+										"delete",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get all client",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"kawtar sss\",\r\n     \"email\": \"kaoutar9@gmail.com\",\r\n    \"password\": \"1234\",\r\n    \"nom\": \"Kaoutar Laajil\"\r\n    \r\n}\r\n"
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/admin/getAllCleint",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"admin",
+										"getAllCleint"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "gestion produit",
+					"item": [
+						{
+							"name": "add product",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"content-type": true
+								}
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nom\": \"test\",\r\n  \"prixUnitaire\": 20,\r\n  \"stock\": 10\r\n}\r\n"
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/admin/products",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"admin",
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update product",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"content-type": true
+								}
+							},
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nom\": \"Laptop\",\r\n  \"prixUnitaire\": 12000,\r\n  \"stock\": 100\r\n}\r\n"
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/admin/products/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"admin",
+										"products",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete produit",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"kawtarmm\",\r\n     \"email\": \"kaoutargm@gmail.com\",\r\n    \"password\": \"1234\",\r\n    \"nom\": \"Kaoutar Laajil\"\r\n    \r\n}\r\n"
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/admin/products/4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"admin",
+										"products",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get active produit",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/admin/products",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"admin",
+										"products"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "gestion commande",
+					"item": [
+						{
+							"name": "add order",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"content-type": true
+								}
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n{\r\n  \"clientId\": 11,\r\n  \"items\": [\r\n    {\r\n      \"productId\": 3,\r\n      \"quantite\": 2\r\n    }\r\n  ],\r\n  \"codePromo\": \"PROMO-AB12\"\r\n}\r\n"
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/admin/commande",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"admin",
+										"commande"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Confirmer Order",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/admin/commande/14",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"admin",
+										"commande",
+										"14"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "updateCommande",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n{\r\n  \"clientId\": 11,\r\n  \"items\": [\r\n    {\r\n      \"productId\": 3,\r\n      \"quantite\": 4\r\n    }\r\n  ],\r\n  \"codePromo\": null\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/admin/commande/14",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"admin",
+										"commande",
+										"14"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deleteCommande",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/admin/commande/13",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"admin",
+										"commande",
+										"13"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "gestion paiement",
+					"item": [
+						{
+							"name": "add payment",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"numeroPaiement\":1,\r\n  \"montant\": 20.00,\r\n  \"typePaiement\": \"ESPECES\",\r\n  \"datePaiement\": \"2025-11-26\",\r\n  \"reference\": \"CHQ-7894561\"\r\n  \r\n}\r\n"
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/admin/paiement/14",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"admin",
+										"paiement",
+										"14"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "ajout admin",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"admin3\",\r\n  \"password\": \"1234\"\r\n}\r\n\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/admins",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"admins"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "profil",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"kawtar sss\",\r\n     \"email\": \"kaoutar9@gmail.com\",\r\n    \"password\": \"1234\",\r\n    \"nom\": \"Kaoutar Laajil\"\r\n    \r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/client/profile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"client",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

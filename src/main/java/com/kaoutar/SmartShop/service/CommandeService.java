@@ -49,6 +49,8 @@ public class CommandeService {
 
             double totalLigne = product.getPrixUnitaire() * itemReq.getQuantite();
             itemReq.setTotalLigne(totalLigne);
+            itemReq.setProductName(product.getNom());
+            itemReq.setPrixUnitaire(product.getPrixUnitaire());
             OrderItem orderItemEntity = orderItemMapper.toEntity(itemReq);
             orderItemEntity.setCommande(commande);
             commande.getItems().add(orderItemEntity);
@@ -176,10 +178,13 @@ public class CommandeService {
             order.getItems().add(itemEntity);
         }
 
+
         // Recalcul discount
         double discount = calculateLoyaltyDiscount(order.getClient(), subTotal);
         if (req.getCodePromo() != null && req.getCodePromo().matches("PROMO-[A-Z0-9]{4}")) {
             discount += subTotal * 0.5;
+        }else {
+            order.setCodePromo(null);
         }
 
         // Recalcul montants

@@ -58,13 +58,11 @@ public class ClientService {
     }
 
 
-    public ClientDTO updateProfile(ClientDTO request, HttpSession session) {
-        Long clientId = (Long) session.getAttribute("userId");
-
+    public ClientDTO updateProfile(ClientDTO request, Long clientId) {
 
         Client clientExiste = clientRepository.findById(clientId)
                 .orElseThrow(() -> new RuntimeException("Client introuvable"));
-
+        if(request.getUsername()!=null) clientExiste.setUsername(request.getUsername());
         if (request.getNom() != null) clientExiste.setNom(request.getNom());
         if (request.getEmail() != null) clientExiste.setEmail(request.getEmail());
         if (request.getPassword() != null) {
