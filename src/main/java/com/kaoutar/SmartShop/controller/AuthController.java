@@ -1,12 +1,15 @@
 package com.kaoutar.SmartShop.controller;
 
 import com.kaoutar.SmartShop.DTO.LoginRequest;
+import com.kaoutar.SmartShop.DTO.Responses.LoginResponse;
 import com.kaoutar.SmartShop.model.User;
 import com.kaoutar.SmartShop.repositery.UserRepository;
+import com.kaoutar.SmartShop.service.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,22 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-    private final UserRepository userRepository;
+    private final AuthService authService;
 
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginRequest request, HttpSession session) {
-        User user = userRepository.findByUsername(request.getUsername())
-                .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
-
-        if (!BCrypt.checkpw(request.getPassword(), user.getPassword())) {
-            throw new RuntimeException("Mot de passe incorrect");
-        }
-
-        session.setAttribute("userId", user.getId());
-        session.setAttribute("role", user.getRole());
-
-        return "Connexion réussie";
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
+        return ResponseEntity.ok(authService.login(request));
     }
 
 

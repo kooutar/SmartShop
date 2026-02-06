@@ -18,13 +18,13 @@ import java.util.stream.Collectors;
 public class GlobalExceptionHandler {
 
     // ----- BusinessException -----
-    @ExceptionHandler(BusinessException.class)
-    public ResponseEntity<Map<String, Object>> handleBusinessException(BusinessException ex) {
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<Map<String, Object>> handleRuntimeExceptionException(RuntimeException ex) {
         Map<String, Object> error = new HashMap<>();
         error.put("timestamp", LocalDateTime.now());
         error.put("status", HttpStatus.BAD_REQUEST.value());
         error.put("error", "Business Error");
-        error.put("message", ex.getMessage());
+        error.put("message", "test " +ex.getMessage());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 

@@ -1,5 +1,7 @@
 package com.kaoutar.SmartShop.Mapper;
 
+import com.kaoutar.SmartShop.DTO.LoginRequest;
+import com.kaoutar.SmartShop.DTO.Responses.LoginResponse;
 import com.kaoutar.SmartShop.DTO.UserDTO;
 import com.kaoutar.SmartShop.model.User;
 import org.mapstruct.Mapper;
@@ -8,4 +10,7 @@ import org.mapstruct.Mapper;
 public interface UserMapper {
     UserDTO toDto(User user);
     User toEntity(UserDTO dto);
+
+
+
 }
