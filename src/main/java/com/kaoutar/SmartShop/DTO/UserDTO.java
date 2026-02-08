@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class UserDTO {
     private Long id;
     private String username;
-    private String role; // on peut envoyer juste le nom de l'enum
+    private String role;
 }

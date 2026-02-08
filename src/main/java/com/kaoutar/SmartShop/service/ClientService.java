@@ -65,10 +65,7 @@ public class ClientService {
         if(request.getUsername()!=null) clientExiste.setUsername(request.getUsername());
         if (request.getNom() != null) clientExiste.setNom(request.getNom());
         if (request.getEmail() != null) clientExiste.setEmail(request.getEmail());
-        if (request.getPassword() != null) {
-            String hashedPass = BCrypt.hashpw(request.getPassword(), BCrypt.gensalt());
-            clientExiste.setPassword(hashedPass);
-        }
+
 
 
         Client clientMisAJour = clientRepository.save(clientExiste);

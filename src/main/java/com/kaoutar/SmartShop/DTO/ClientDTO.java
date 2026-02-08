@@ -16,7 +16,6 @@ public class ClientDTO {
     private String tier;
     private Integer totalOrders;
     private Double totalSpent;
-    private  String password;
 
     private List<CommandeDTO> commandes;
 }

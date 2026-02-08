@@ -1,6 +1,6 @@
 package com.kaoutar.SmartShop.service;
 
-import com.kaoutar.SmartShop.DTO.LoginMapper;
+import com.kaoutar.SmartShop.Mapper.LoginMapper;
 import com.kaoutar.SmartShop.DTO.LoginRequest;
 import com.kaoutar.SmartShop.DTO.Responses.LoginResponse;
 import com.kaoutar.SmartShop.Security.CustomUserDetails;

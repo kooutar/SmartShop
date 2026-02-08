@@ -4,11 +4,13 @@ import jakarta.validation.ConstraintViolation;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import jakarta.validation.ConstraintViolationException ;
 
+import java.nio.file.AccessDeniedException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -87,4 +89,24 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(AccessDeniedException.class)
+    public  ResponseEntity<Map<String,Object>> handleAccessDeniedException(AccessDeniedException ex){
+        Map<String, Object> error = new HashMap<>();
+        error.put("timestamp", LocalDateTime.now());
+        error.put("status", HttpStatus.FORBIDDEN.value());
+        error.put("error", "FORBIDDEN");
+        error.put("message", ex.getMessage());
+        return  new ResponseEntity<>(error,HttpStatus.FORBIDDEN);
+    }
+    // ----- 401 Unauthorized - Authentification échouée -----
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<Map<String, Object>> handleAuthenticationException(AuthenticationException ex) {
+        Map<String, Object> error = new HashMap<>();
+        error.put("timestamp", LocalDateTime.now());
+        error.put("status", HttpStatus.UNAUTHORIZED.value());
+        error.put("error", "Unauthorized");
+        error.put("message", "Authentication failed: " + ex.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
+    }
+
 }

@@ -29,12 +29,10 @@ public class AuthController {
 
 
     @PostMapping("/logout")
-    public String logout(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.invalidate();
-        }
-        return "Déconnexion réussie";
+    public ResponseEntity<String> logout() {
+        // Rien à faire côté serveur
+        return ResponseEntity.ok("Déconnexion réussie");
+
     }
 
 
